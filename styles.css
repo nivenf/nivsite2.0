@@ -5,13 +5,15 @@ html, body {
 }
 
 body {
-	background-image: url("bg.png");
+	//background-image: url("bg.png");
 	background-color: #000000;
 	background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; 
 }
 
-#text-about {
-	
+#director {
+}
+
+#hl-rect {
 }
