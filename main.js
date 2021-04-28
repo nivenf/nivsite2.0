@@ -59,6 +59,13 @@ var svg_dir = d3.select("#director")
 						.transition()
 						.duration(200)
 						.attr("fill", "white");
+					})
+					.on("click", function(event, d) {
+						svg_dir.select("#page_rect")
+						.transition()
+						.duration(700)
+						.attr("y", 0)
+						.ease(d3.easeCubicOut);
 					});
 					
 					
@@ -73,7 +80,7 @@ var svg_dir = d3.select("#director")
 						.attr("fill", "white")
 						.transition()
 						.duration(200)
-						.attr("width", "130");
+						.attr("width", "127");
 
 						svg_dir.select("#text-about")
 						.transition()
@@ -90,6 +97,13 @@ var svg_dir = d3.select("#director")
 						.transition()
 						.duration(200)
 						.attr("fill", "white");
+					})
+					.on("click", function(event, d) {
+						svg_dir.select("#page_rect")
+						.transition()
+						.duration(700)
+						.attr("y", 0)
+						.ease(d3.easeCubicOut);
 					});
 					
 					
@@ -120,6 +134,13 @@ var svg_dir = d3.select("#director")
 						.transition()
 						.duration(200)
 						.attr("fill", "white");
+					})
+					.on("click", function(event, d) {
+						svg_dir.select("#page_rect")
+						.transition()
+						.duration(700)
+						.attr("y", 0)
+						.ease(d3.easeCubicOut);
 					});
 					
 		//--------------------------------------------------------------------------
@@ -154,7 +175,7 @@ var d_nf_cx = WIN_WIDTH/2;
 var d_nf_cy = WIN_HEIGHT/2;
 
 var text_name = GROUP_NAME.append("text")
-						  .attr("x", d_nf_cx - 200)
+						  .attr("x", d_nf_cx - 220)
 						  .attr("y", (d_nf_cy * 80 / 100))
 						  .text("NIVEN FRANCIS")
 						  .attr("font-family", "'EB Garamond', serif")
@@ -199,18 +220,74 @@ var text_port = GROUP_SELECTORS.append("text")
 								 .attr("y", d_nf_cy)
 								 .text("PORTFOLIO")
 								 .attr("id", "text-port")
-								 .attr("fill", "white");
+								 .attr("fill", "white")
+								 .attr("cursor", "pointer");
 								
 var text_about = GROUP_SELECTORS.append("text")
 							   .attr("x", d_nf_cx - 320)
 							   .attr("y", d_nf_cy)
 							   .text("ABOUT")
 							   .attr("id", "text-about")
-							   .attr("fill", "white");
+							   .attr("fill", "white")
+							   .attr("cursor", "pointer");
 							   
 var text_contact = GROUP_SELECTORS.append("text")
 							   .attr("x", d_nf_cx + 190)
 							   .attr("y", d_nf_cy)
 							   .text("CONTACT")
 							   .attr("id", "text-contact")
-							   .attr("fill", "white");
+							   .attr("fill", "white")
+							   .attr("cursor", "pointer");
+
+
+// PAGE CONTENT
+
+
+var page_group = svg_dir.append("g").attr("id", "PAGE")
+                                    .attr("fill", "gray");
+				   
+var page_rect = page_group.append("rect")
+						  .attr("x", (WIN_WIDTH - (WIN_WIDTH * 0.75)) / 2)
+						  .attr("y", WIN_HEIGHT)
+						  .attr("width", WIN_WIDTH * 0.75)
+						  .attr("height", WIN_HEIGHT)
+						  .attr("id", "page_rect");
+
+					
+var point_1 = 10 * WIN_SCALE_X;
+var point_2 = 80 * WIN_SCALE_X;	
+	
+var exit = page_group.append("g")
+					.attr("id", "exit")
+					.attr("transform", "translate(" + (((WIN_WIDTH - (WIN_WIDTH * 0.75)) / 2) - (point_2 * 1.5)) + ", 30)")
+					.on("click", function(event, d) {
+						svg_dir.select("#page_rect")
+						.transition()
+						.duration(700)
+						.attr("y", WIN_HEIGHT)
+						.ease(d3.easeCubicOut);
+					});
+					
+var invis_rect = page_group.select("#exit")
+						   .append("rect")
+						   .attr("width", point_2 + point_1)
+						   .attr("height", point_2 + point_1)
+						   .attr("fill", "gray");
+
+var line = page_group.select("#exit")
+					.append("line")
+					.attr("x1", point_2)
+					.attr("y1", point_1)
+					.attr("x2", point_1)
+					.attr("y2", point_2)
+					.attr("stroke", "black")
+					.attr("stroke-width", 5);
+					
+var line = page_group.select("#exit")
+					.append("line")
+					.attr("x1", point_1)
+					.attr("y1", point_1)
+					.attr("x2", point_2)
+					.attr("y2", point_2)
+					.attr("stroke", "black")
+					.attr("stroke-width", 5);

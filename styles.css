@@ -1,19 +1,52 @@
 html, body {
-	overflow: hidden;
+	//overflow: hidden;
 	margin: 0;
 	padding: 0;
 }
 
 body {
-	//background-image: url("bg.png");
+	background-image: url("bg.png");
 	background-color: #000000;
 	background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; 
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
 }
 
-#director {
+* {
+  box-sizing: border-box;
+  color: white;
 }
 
-#hl-rect {
+body {
+  background-color: black;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.win-grid {
+  border: 1px solid white;
+  letter-spacing: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  text-align: center;
+  grid-gap: 1rem;
+  padding: 5rem;
+}
+
+.win-btn {
+  padding: 1rem 2rem;
+  text-align: center;
+  border: none;
+  border-radius: 0px;
+  border: 1px solid transparent;
+}
+
+button:focus {
+  outline: none;
 }
