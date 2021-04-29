@@ -5,6 +5,8 @@ var WIN_WIDTH = window.innerWidth;
 var WIN_SCALE_X = WIN_WIDTH / 1920;
 var WIN_SCALE_Y = WIN_HEIGHT / 1080;
 
+var test = false;
+
 var svg_dir = d3.select("#director")
 				.append("svg")
 				.attr("width", WIN_WIDTH)
@@ -291,3 +293,120 @@ var line = page_group.select("#exit")
 					.attr("y2", point_2)
 					.attr("stroke", "black")
 					.attr("stroke-width", 5);
+					
+
+// -------------------------------------------------------------
+
+
+var button_group = d3.select("#button_group")
+					 .on("mousemove", function(event, d) {						
+						svg_dir.select("#text-about")
+						.transition()
+						.duration(50)
+						.attr("style", function() {
+							return "transform: " + "rotateX(" + 0*1 + "deg)" + "rotateY(" + 0*-1 + "deg); filter: blur(3px);";
+						})
+						
+						svg_dir.select("#text-port")
+						.transition()
+						.duration(50)
+						.attr("style", function() {
+							return "transform: " + "rotateX(" + 0*1 + "deg)" + "rotateY(" + 0*-1 + "deg); filter: blur(3px);";
+						})
+						
+						svg_dir.select("#text-contact")
+						.transition()
+						.duration(50)
+						.attr("style", function() {
+							return "transform: " + "rotateX(" + 0*1 + "deg)" + "rotateY(" + 0*-1 + "deg); filter: blur(3px);";
+						})
+						
+						svg_dir.select("#GROUP_NAME")
+						.transition()
+						.duration(50)
+						.attr("style", function() {
+							return "transform: " + "rotateX(" + 0*1 + "deg)" + "rotateY(" + 0*-1 + "deg);";
+						})
+				     })
+					 
+					 .on("mouseout", function(event, d) {
+						test = true;
+					 });
+						  
+
+
+
+// -------------------------------------------------------------
+
+/**
+ * You can find an explanation for this code here - https://dev.to/jashgopani
+ */
+const offset = 69;
+const angles = []; //in deg
+for (let i = 0; i <= 360; i += 45) {
+  angles.push((i * Math.PI) / 180);
+}
+let nearBy = [];
+
+function clearNearBy() {
+  nearBy.splice(0, nearBy.length).forEach((e) => (e.style.borderImage = null));
+}
+
+/*Effect #1 explanation - bit.ly/win10-button-effect*/
+document.querySelectorAll(".win-btn").forEach((b) => {
+  // console.log(b);
+  b.onmouseleave = (e) => {
+    e.target.style.background = "black";
+    e.target.style.borderImage = null;
+    e.target.border = "5px solid transparent";
+  };
+
+  b.onmouseenter = (e) => {
+    clearNearBy();
+  };
+
+  b.addEventListener("mousemove", (e) => {
+    e.target.border = "1px solid transparent";
+    const rect = e.target.getBoundingClientRect();
+    const x = e.clientX - rect.left; //x position within the element.
+    const y = e.clientY - rect.top; //y position within the element.
+    e.target.style.background = `radial-gradient(circle at ${x}px ${y}px , rgba(255,255,255,0.25),rgba(255,255,255,0) )`;
+    e.target.style.borderImage = `radial-gradient(20% 65% at ${x}px ${y}px ,rgba(255,255,255,0.7),rgba(255,255,255,0.7),rgba(255,255,255,0.1) ) 9 / 2px / 0px stretch `;
+  });
+});
+
+const body = document.querySelector(".win-grid");
+
+body.addEventListener("mousemove", (e) => {
+  const x = e.x; //x position within the element.
+  const y = e.y; //y position within the element.
+
+  clearNearBy();
+  nearBy = angles.reduce((acc, rad, i, arr) => {
+    const cx = Math.floor(x + Math.cos(rad) * offset);
+    const cy = Math.floor(y + Math.sin(rad) * offset);
+    const element = document.elementFromPoint(cx, cy);
+
+    if (element !== null) {
+      // console.log("cursor at ", x, y, "element at ", cx, cy, element);
+      if (
+        element.className === "win-btn" &&
+        acc.findIndex((ae) => ae.id === element.id) < 0
+      ) {
+        const brect = element.getBoundingClientRect();
+        const bx = x - brect.left; //x position within the element.
+        const by = y - brect.top; //y position within the element.
+        if (!element.style.borderImage)
+          element.style.borderImage = `radial-gradient(${offset * 2}px ${
+            offset * 2
+          }px at ${bx}px ${by}px ,rgba(255,255,255,0.7),rgba(255,255,255,0.1),transparent ) 9 / 1px / 0px stretch `;
+        return [...acc, element];
+      }
+    }
+    return acc;
+  }, []);
+});
+
+body.onmouseleave = (e) => {
+  clearNearBy();
+};
