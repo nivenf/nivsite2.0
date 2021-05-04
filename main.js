@@ -187,7 +187,7 @@ var text_name = GROUP_NAME.append("text")
 						  .attr("font-smooth", "2em")
 						  .attr("id", "text-name");
 						  
-						  
+console.log(WIN_SCALE_X);
 // SELECTORS
 
 var GROUP_SELECTORS = svg_dir.append("g").attr("id", "GROUP_SELECTORS")								 
